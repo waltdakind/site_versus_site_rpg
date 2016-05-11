@@ -1,0 +1,29 @@
+{
+  "name": "site_versus_site_rpg",
+  "version": "1.0.0",
+  "description": "Site Vs Site RPG is a turn based RPG where the stats of the players are culled from real web site analytics from Google Analytics' API\r   - Uses Node and MySQL to store site/player data\r   - Favicons from popular (and not so popular) sites form the basis for the player's in-game icon\r   - Player class determined by type of web sites chosen as part of one's party",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waltdakind/site_versus_site_rpg.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waltdakind/site_versus_site_rpg/issues"
+  },
+  "homepage": "https://github.com/waltdakind/site_versus_site_rpg#readme",
+  "dependencies": {
+    "awis": "^1.0.1",
+    "express": "^4.13.4",
+    "mysql": "^2.10.2",
+    "sequelize": "^3.23.0"
+  }
+}
