@@ -6,8 +6,7 @@ Site Vs Site RPG is a turn based RPG where the stats of the players are culled f
   - Player class determined by type of web sites chosen as part of one's party
 
 This project is a collaboarative effort of Rutgers Coding Bootcamp participants [Jacob Deming], [John Reda], [Nate Hawley], and [Walter Mattingly].  A {soon to be deployed} version of the site is available at  
- [site-v-site.herokuapp.com]: 
- http://site-v-site.herokuapp.com
+ [site-v-site.herokuapp.com]: (http://site-v-site.herokuapp.com)
  
  We hope you enjoy!
 
