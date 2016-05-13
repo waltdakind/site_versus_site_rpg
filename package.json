@@ -22,6 +22,7 @@
   "homepage": "https://github.com/waltdakind/site_versus_site_rpg#readme",
   "dependencies": {
     "awis": "^1.0.1",
+    "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "mysql": "^2.10.2",
     "sequelize": "^3.23.0"
