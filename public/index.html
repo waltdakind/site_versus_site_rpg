@@ -24,7 +24,7 @@
 	<h1 class="text-center" id="logoId">
 		SITE V. SITE
 	</h1>
-<form>
+<form id ="newSiteForm">
   <fieldset class="form-group">
     <label for="newTeamMember" id="newSiteHeader" class="text-center">YOUR SITES</label>
     <input type="text" class="form-control" id="urlBox" placeholder="ENTER A URL TO ADD TO YOUR TEAM">
@@ -97,7 +97,7 @@
 	$('.favico2').addClass('targetPulse');
 });
 
-	$(".form-control").on("enter", function(){
+	$("#newSiteForm").on("submit", function(){
 		var newSite = $("#urlBox").val().trim();
 		console.log(newSite);
 		$("#urlBox").val(" ");
