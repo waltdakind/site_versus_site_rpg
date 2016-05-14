@@ -7,8 +7,10 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="animate.css">
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="rocket-master/rocket.css">
+		<link rel="stylesheet" href="assets/css/animate.css">
+		<link rel="stylesheet" href="assets/css/style.css">
 		<script src="https://code.jquery.com/jquery.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="rocket-master/rocket.js"></script>
@@ -18,8 +20,22 @@
 </head>
 <body>
 <div class="container">
+
+	<h1 class="text-center" id="logoId">
+		SITE V. SITE
+	</h1>
+<form>
+  <fieldset class="form-group">
+    <label for="newTeamMember" id="newSiteHeader" class="text-center">YOUR SITES</label>
+    <input type="text" class="form-control" id="urlBox" placeholder="ENTER A URL TO ADD TO YOUR TEAM">
+
+	   	<button type="button" id= "addButton" class="btn btn-secondary-outline">
+	   		<i class="fa fa-plus-circle" aria-hidden="true"></i>
+	   	</button>
+  </fieldset>
+</form>
 		
-			<h1 class="text-center animated bounce" id="animateh1">
+			<h1 class="text-center animated bounce hidden" id="animateh1">
 				ROUND 1
 			</h1>
 	</div>
@@ -28,8 +44,8 @@
 	<div class="row">
 		<div class="col-lg-3"></div>
 		<div class="col-lg-4">
-			<div class="circle5">
-				<img src="https://www.seeklogo.net/wp-content/uploads/2015/09/new-google-favicon-logo.png" alt="" class="favico2 animated bounce" class="center">
+			<div class="circle5 hidden">
+				<img src="https://www.seeklogo.net/wp-content/uploads/2015/09/new-google-favicon-logo.png" alt="" class="favico2 animated bounce hidden" class="center">
 			</div>
 		</div>
 	</div>
@@ -40,26 +56,26 @@
 		<div class="col-xs-1"></div>
 		<div class="col-md-3" id="yourSite1">
 			<div class="circle1">
-				<img src="http://linkedin.com/favicon.ico" alt="" class="favico animated bounce">
+				<img src="http://linkedin.com/favicon.ico" alt="" class="favico hidden animated bounce">
 
 			</div>
 		</div>
 
 		<div class="col-md-3">
-			<div class="circle2">
-				<img src="http://espn.go.com/favicon.ico" alt="" class="favico animated bounce">
+			<div class="circle2" id="yourSite2">
+				<img src="http://espn.go.com/favicon.ico" alt="" class="favico  hidden animated bounce">
 			</div>
 		</div>
 
 		<div class="col-md-3">
 			<div class="circle3">
-				<img src="http://pitchfork.com/favicon.ico" alt="" class="favico animated bounce">
+				<img src="http://pitchfork.com/favicon.ico" alt="" class="favico hidden animated bounce">
 			</div>
 		</div>
 
 		<div class="col-md-2">
 			<div class="circle4">
-				<img src="https://www.yahoo.com/favicon.ico" alt="" class="favico animated bounce">
+				<img src="https://www.yahoo.com/favicon.ico" alt="" class="favico hidden animated bounce">
 					
 				</div>
 			</div>
@@ -80,5 +96,21 @@
 	rocketcss(this,'.favico2', 'rocketPulse');
 	$('.favico2').addClass('targetPulse');
 });
+
+	$(".form-control").on("enter", function(){
+		var newSite = $("#urlBox").val().trim();
+		console.log(newSite);
+		$("#urlBox").val(" ");
+		return false;
+	});
+
+
+	$("#addButton").on("click", function(){
+		var newSite = $("#urlBox").val().trim();
+		console.log(newSite);
+	$("#urlBox").val(" ");
+	return false;
+		})
+
 
 </script>

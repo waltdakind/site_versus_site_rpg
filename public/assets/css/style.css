@@ -6,6 +6,31 @@ body{
   background-size: 100%; /* Standard syntax */
 }
 
+#logoId{
+	margin-top: 55px;
+	color: #f53240;
+	font-family: 'Fjalla One', sans-serif;
+	font-size: 150px;
+}
+#newSiteHeader{
+	margin-top: 70px;
+	color: #f53240;
+	font-family: 'Fjalla One', sans-serif;
+	font-size: 50px;
+}
+
+#urlBox{
+	width: 635px;
+}
+
+#addButton{
+	background-color: #f53240;
+	color: white;
+	float: right;
+	margin-top: -36px;
+	height: 37px;
+}
+
 h1 {
 	font-family: 'Fjalla One', sans-serif;
 	color: #f53240;
