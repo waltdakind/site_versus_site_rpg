@@ -1,0 +1,62 @@
+.container{
+	width: 700px;
+}
+body{	
+  background: linear-gradient(to bottom right, #00303f, #02c8a7);
+  background-size: 100%; /* Standard syntax */
+}
+
+h1 {
+	font-family: 'Fjalla One', sans-serif;
+	color: #f53240;
+	font-size: 100px;
+	
+}
+
+#animateh1:hover {
+    -webkit-transform: perspective(500) rotateX(90deg) translateY(-3em) translateZ(3em);
+}
+
+.circle1, .circle2, .circle3, .circle4 {
+    -moz-border-radius: 80px/80px;
+    -webkit-border-radius: 80px 80px;
+    border-radius: 80px/50px;
+    border:solid 2px #fff;
+    width:150px;
+    height:150px;   
+}
+
+
+
+.circle5{
+    -moz-border-radius: 100px/100px;
+    -webkit-border-radius: 50px 50px;
+    border-radius: 200px/200px;
+    border:solid 2px #fff;
+    width:250px;
+    height:250px; 
+    float: right; 
+
+}
+
+.favico{
+	margin-top: 50px;
+	margin-left: 45px;
+	height: 50px;
+	width:50px;
+}
+
+.favico2{
+	margin-top: 22.5px;
+	margin-left: 22.5px;
+	height: 200px;
+	width: 200px;
+}
+
+
+#site1Well{
+	height: 50px;
+	width: 100px;
+	border: solid 2px #f53240;
+	background: #fff;
+}
