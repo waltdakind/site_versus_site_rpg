@@ -14,7 +14,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
 // Load static files
-app.use(express.static('./public'));
+app.use(express.static('./test/public'));
 
 require('./app/routes/api-routes.js')(app);
 require('./app/routes/html-routes.js')(app);
