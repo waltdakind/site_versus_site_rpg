@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Site V. Site</title>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+		<link rel="stylesheet" href="rocket-master/rocket.css">
+		<link rel="stylesheet" href="assets/css/animate.css">
+		<link rel="stylesheet" href="assets/css/style.css">
+		<script src="assets/js/app.js"></script>
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="rocket-master/rocket.js"></script>
+		
+	
+</head>
+<body>
+<div class="container">
+
+	<h1 class="text-center" id="logoId">
+		SITE V. SITE
+	</h1>
+<form id ="newSiteForm">
+  <fieldset class="form-group">
+    <label for="newTeamMember" id="newSiteHeader" class="text-center">YOUR SITES</label>
+    <input type="text" class="form-control" id="urlBox" placeholder="ENTER A URL TO ADD TO YOUR TEAM">
+
+	   	<button type="button" id= "addButton" class="btn btn-secondary-outline">
+	   		<i class="fa fa-plus-circle" aria-hidden="true"></i>
+	   	</button>
+  </fieldset>
+</form>
+
+<!-- MODAL TO OFFICIALLY ADD TO YOUR TEAM -->
+<div id="addThisModal" class="modal fade"  tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" id="addThisModal">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">ADD THIS SITE?</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+        <button type="button" class="btn btn-primary" id="addToTeam">ADD</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+		
+			<h1 class="text-center animated bounce hidden" id="animateh1">
+				ROUND 1
+			</h1>
+	</div>
+<br><br><br>
+	<!-- CHALLENGE -->
+	<div class="row">
+		<div class="col-lg-3"></div>
+		<div class="col-lg-4">
+			<div class="circle5 hidden">
+				<img src="https://www.seeklogo.net/wp-content/uploads/2015/09/new-google-favicon-logo.png" alt="" class="favico5 animated bounce hidden" class="center">
+			</div>
+		</div>
+	</div>
+	<br><br><br><br><br><br>
+
+	<!-- YOUR PARTY -->
+	<div class="row">
+		<div class="col-xs-1"></div>
+		<div class="col-md-3" id="yourSite1">
+			<div class="circle1">
+				<img src="http://linkedin.com/favicon.ico" alt="" class="favico1 hidden animated flash bounce">
+
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="circle2" id="yourSite2">
+				<img src="http://espn.go.com/favicon.ico" alt="" class="favico2  hidden animated bounce">
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="circle3">
+				<img src="http://pitchfork.com/favicon.ico" alt="" class="favico3 hidden animated bounce">
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="circle4">
+				<img src="https://www.yahoo.com/favicon.ico" alt="" class="favico4 hidden animated bounce">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+<br><br>
+
+
+	
+
+<br><br><br><br><br><br><br><br>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	$('.favico').on('click', function() {
+	rocketcss(this,'.favico2', 'rocketPulse');
+	$('.favico2').addClass('targetPulse');
+});
+
+
+	$("#newSiteForm").on("submit", function(){
+		var newSite = $("#urlBox").val().trim();
+		$("#addThisModal").modal('toggle');
+		$("#addThisModal").find('modal-body input').val(newSite);
+		
+		console.log(newSite);
+ 	$("#addToTeam").on("click", function() {
+		$("#addThisModal").modal('toggle');
+		$("#urlBox").val(" ");
+		$("#newSiteHeader").addClass("hidden");
+		$("#newSiteForm").addClass("hidden");
+		$(".favico1").removeClass("hidden");
+ 	})
+
+		
+		return false;
+
+	});
+
+
+	$("#addButton").on("click", function(){
+		var newSite = $("#urlBox").val().trim();
+		console.log(newSite);
+	$("#urlBox").val(" ");
+	// $("addThisModal").modal('show');
+	return false;
+		})
+
+
+</script>
