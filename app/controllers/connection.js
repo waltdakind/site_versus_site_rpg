@@ -4,6 +4,8 @@
 
 var mysql = require('mysql');
 
+var Sequelize = require("sequelize"); 
+
 var source = {
 
     jawsDB: {
@@ -14,6 +16,18 @@ var source = {
         database: "nxow7a90d6uh3egj"
     }
 }
+
+var sequelize = new Sequelize('nxow7a90d6uh3egj', 'c3s2cpxr2c42o8q5', 'jtd6qn8wzh9n8igx', {
+  host: 'l9dwvv6j64hlhpul.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  dialect: 'mysql',
+
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  }
+});
+
 var connection = mysql.createConnection(source.jawsDB);
 
 
@@ -24,4 +38,4 @@ connection.connect(function(err){
     console.log('connected as id ' + connection.threadId);
 });
 
-module.exports = connection;
+module.exports = sequelize;
