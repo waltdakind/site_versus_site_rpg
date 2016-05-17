@@ -164,9 +164,10 @@ var characterCreate={
       return (4+DEFbuff);}},
 
 
-  createCharacter:function(newURL,app,playerCharacters){
+  createCharacter:function(newURL,app,playerCharacters,cb){
     client({'Action': 'UrlInfo','Url': newURL,'ResponseGroup': 'ContentData,Related,TrafficData,LinksInCount'}, function (err, data){
         playerCharacters.push(new characterCreate.Character(data));
+        cb(playerCharacters);
         console.log(playerCharacters);
         app.get('/',function(req,res){
           res.json(data);
