@@ -3,148 +3,133 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Site V. Site</title>
-		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
-		<link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-		<link rel="stylesheet" href="rocket-master/rocket.css">
-		<link rel="stylesheet" href="assets/css/animate.css">
-		<link rel="stylesheet" href="assets/css/style.css">
-		<script src="assets/js/app.js"></script>
-		<script src="https://code.jquery.com/jquery.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-		<script type="text/javascript" src="rocket-master/rocket.js"></script>
+
+	<!-- Materialize CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<!-- Materialize Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+	<!-- Animate CSS -->
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<!-- RocketJS CSS -->
+	<link rel="stylesheet" href="rocket-master/rocket.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="assets/css/style.css">
 		
 	
 </head>
 <body>
-<div class="container">
+	<div class="container">
 
-	<h1 class="text-center" id="logoId">
-		SITE V. SITE
-	</h1>
-<form id ="newSiteForm">
-  <fieldset class="form-group">
-    <label for="newTeamMember" id="newSiteHeader" class="text-center">YOUR SITES</label>
-    <input type="text" class="form-control" id="urlBox" placeholder="ENTER A URL TO ADD TO YOUR TEAM">
-
-	   	<button type="button" id= "addButton" class="btn btn-secondary-outline">
-	   		<i class="fa fa-plus-circle" aria-hidden="true"></i>
-	   	</button>
-  </fieldset>
-</form>
-
-<!-- MODAL TO OFFICIALLY ADD TO YOUR TEAM -->
-<div id="addThisModal" class="modal fade"  tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content" id="addThisModal">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">ADD THIS SITE?</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-        <button type="button" class="btn btn-primary" id="addToTeam">ADD</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-		
-			<h1 class="text-center animated bounce hidden" id="animateh1">
-				ROUND 1
+		<!-- H1 Row (Title/Round #) -->
+		<div class="topRow row">
+			<h1 class="center-align animated bounce" id="logoId">
+				SITE V. SITE
 			</h1>
-	</div>
-<br><br><br>
-	<!-- CHALLENGE -->
-	<div class="row">
-		<div class="col-lg-3"></div>
-		<div class="col-lg-4">
-			<div class="circle5 hidden">
-				<img src="https://www.seeklogo.net/wp-content/uploads/2015/09/new-google-favicon-logo.png" alt="" class="favico5 animated bounce hidden" class="center">
-			</div>
-		</div>
-	</div>
-	<br><br><br><br><br><br>
-
-	<!-- YOUR PARTY -->
-	<div class="row">
-		<div class="col-xs-1"></div>
-		<div class="col-md-3" id="yourSite1">
-			<div class="circle1">
-				<img src="http://linkedin.com/favicon.ico" alt="" class="favico1 hidden animated flash bounce">
-
-			</div>
 		</div>
 
-		<div class="col-md-3">
-			<div class="circle2" id="yourSite2">
-				<img src="http://espn.go.com/favicon.ico" alt="" class="favico2  hidden animated bounce">
-			</div>
-		</div>
-
-		<div class="col-md-3">
-			<div class="circle3">
-				<img src="http://pitchfork.com/favicon.ico" alt="" class="favico3 hidden animated bounce">
-			</div>
-		</div>
-
-		<div class="col-md-2">
-			<div class="circle4">
-				<img src="https://www.yahoo.com/favicon.ico" alt="" class="favico4 hidden animated bounce">
-					
+		<!-- Add Form / Boss -->
+		<div class="midRow row">
+			<form class="col s12" id="formValidate" method="get">
+				<div class="row">
+					<div class="input-field col s10">
+						<i class="material-icons prefix">add_circle_outline</i>
+						<label id="newSiteHeader" class="active" for="curl">Your Sites</label>
+						<input value="http://" id="curl" type="url" name="curl" data-error=".errorTxt">
+						<div class="center-align errorTxt"></div>
+					</div>
+					<div class="button-col col s2">
+						<button class="btn-large waves-effect waves-light red z-depth-3" type="submit" name="action" href="">
+							<i class="material-icons">add</i>
+						</button>
+					</div>
 				</div>
+			</form>
+		</div>
+
+		<br class="spacebro">
+
+		<!-- User's Party -->
+		<div class="row">
+				<div class="col m2 offset-m1" id="yourSite1">
+					<div class="circle1 z-depth-3">
+						<img src="" alt="" class="favico1 hidden animated flash bounce">
+					</div>
+
+					<div class="card-panel invs menu1">
+						<a class="waves-effect waves-light btn atkBtn"><i class="material-icons left">gavel</i>Attack</a>
+						<a class="waves-effect waves-light btn defBtn"><i class="material-icons left">security</i>Defend</a>
+						<a class="waves-effect waves-light btn spcBtn"><i class="material-icons left">flare</i>Special</a>
+					</div>
+				</div>
+
+				<div class="col m2 offset-m1">
+					<div class="circle2 z-depth-3" id="yourSite2">
+						<img src="" alt="" class="favico2  hidden animated bounce">
+					</div>
+
+					<div class="card-panel invs menu2">
+						<a class="waves-effect waves-light btn atkBtn"><i class="material-icons left">gavel</i>Attack</a>
+						<a class="waves-effect waves-light btn defBtn"><i class="material-icons left">security</i>Defend</a>
+						<a class="waves-effect waves-light btn spcBtn"><i class="material-icons left">flare</i>Special</a>
+					</div>
+				</div>
+
+				<div class="col m2 offset-m1">
+					<div class="circle3 z-depth-3">
+						<img src="" alt="" class="favico3 hidden animated bounce">
+					</div>
+
+					<div class="card-panel invs menu3">
+						<a class="waves-effect waves-light btn atkBtn"><i class="material-icons left">gavel</i>Attack</a>
+						<a class="waves-effect waves-light btn defBtn"><i class="material-icons left">security</i>Defend</a>
+						<a class="waves-effect waves-light btn spcBtn"><i class="material-icons left">flare</i>Special</a>
+					</div>
+				</div>
+
+				<div class="col m2 offset-m1">
+					<div class="circle4 z-depth-3">
+						<img src="" alt="" class="favico4 hidden animated bounce">	
+					</div>
+
+					<div class="card-panel invs menu4">
+						<a class="waves-effect waves-light btn atkBtn"><i class="material-icons left">gavel</i>Attack</a>
+						<a class="waves-effect waves-light btn defBtn"><i class="material-icons left">security</i>Defend</a>
+						<a class="waves-effect waves-light btn spcBtn"><i class="material-icons left">flare</i>Special</a>
+					</div>
+				</div>
+		</div>
+
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal">
+		<div class="modal-content">
+			<h4 id="modHead" class="center-align">Header</h4>
+			<div id="modTxt" class="center-align">
+				<p>A bunch of text</p>
 			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class=" modal-action modal-close A waves-effect waves-green btn-flat">Agree</a>
+			<a href="#!" class=" modal-action modal-close D waves-effect waves-red btn-flat">Disagree</a>
+		</div>
 	</div>
-	
+		
 	</div>
-<br><br>
 
+<br class="spacebro">
 
-	
-
-<br><br><br><br><br><br><br><br>
 </body>
 </html>
 
-<script type="text/javascript">
-
-	$('.favico').on('click', function() {
-	rocketcss(this,'.favico2', 'rocketPulse');
-	$('.favico2').addClass('targetPulse');
-});
-
-
-	$("#newSiteForm").on("submit", function(){
-		var newSite = $("#urlBox").val().trim();
-		$("#addThisModal").modal('toggle');
-		$("#addThisModal").find('modal-body input').val(newSite);
-		
-		console.log(newSite);
- 	$("#addToTeam").on("click", function() {
-		$("#addThisModal").modal('toggle');
-		$("#urlBox").val(" ");
-		$("#newSiteHeader").addClass("hidden");
-		$("#newSiteForm").addClass("hidden");
-		$(".favico1").removeClass("hidden");
- 	})
-
-		
-		return false;
-
-	});
-
-
-	$("#addButton").on("click", function(){
-		var newSite = $("#urlBox").val().trim();
-		console.log(newSite);
-	$("#urlBox").val(" ");
-	// $("addThisModal").modal('show');
-	return false;
-		})
-
-
-</script>
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- JQuery Validation Plugin -->
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
+<!-- RocketJS (Animations) JavaScript -->
+<script type="text/javascript" src="rocket-master/rocket.js"></script>
+<!-- Materialize JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+<!-- Update JS (For sending data back and forth) -->
+<script type="text/javascript" src="assets/js/update.js"></script>
