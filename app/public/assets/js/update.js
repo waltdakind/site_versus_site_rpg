@@ -2,6 +2,7 @@ $( document ).ready(function() {
 
 var party = 0;
 var team = [];
+var realTeam = [];
 
 $("#formValidate").validate({
 	rules: {
@@ -27,18 +28,21 @@ $("#formValidate").validate({
 
 	submitHandler: function(form) {
 
-		if (party <= 3){
+	var input = $("#curl").val();
+
+		if (team.length < 5){
+
 			console.log(party);
 
 			var input = $("#curl").val();
-
-			console.log("YOO its " + input);
 
 			$("#curl").val("http://");
 
 			party++;
 
 			team.push(input);
+
+			console.log("Squad :" + team);
 
 			var newURL = cleanURL(input);
 
@@ -53,14 +57,12 @@ $("#formValidate").validate({
 					in_duration: 300, // Transition in duration
 					out_duration: 200, // Transition out duration
 					ready: function () { // Callback for Modal open
-						console.log("Model for: " + (team[party-1]) );
 						$("#modHead").text("Do you want " + newURL + " on your team?");
 						$("#modTxt").html("<ul> <li>Class: " + data[party-1].class + "</li> <li>HP: " + data[party-1].HP + "</li> <li>STR: " + data[party-1].STR + "</li> <li>INT: " + data[party-1].INT + "</li> <li>Dodge: " + data[party-1].dodge + "</li> </ul>");
 					},
 					complete: function() { // Callback for Modal close
-						
+						realTeam.push(data[party-1]);
 					},
-
 				});
 
 				$('.A').on('click', function() {
@@ -87,24 +89,22 @@ $("#formValidate").validate({
 
 			});
 
+			if (team.length == 4){
+				// console.log("2" +team.length);
+				startGame(realTeam);
+			}
+
 			return false;
 
 		form.submit(function() {
 			return false;
 		});
 
-		if (party = 4){
-			startGame();
-			return false;
-		}
-
-		} else {
-			startGame();
-		}
+		} 
 	}
 });
 
-function startGame() {
+function startGame(realTeam) {
 	$(".topRow").empty();
 	$(".topRow").html("<h1 class='center-align animated bounce' id='animateh1'>ROUTE 1</h1>");
 	$(".topRow").animate({
@@ -122,11 +122,13 @@ function startGame() {
 			console.log("Complete!")
 	});
 
-	$(".invs").animate({
-		opacity: 1,
-		}, 1500, function() {
-			console.log("Complete!")
-	});
+	// $(".invs").animate({
+	// 	opacity: 1,
+	// 	}, 1500, function() {
+	// 		console.log("Complete!")
+	// });
+
+	startRound(realTeam,boss,1);
 }
 
 function cleanURL(input){
@@ -142,80 +144,69 @@ function cleanURL(input){
 	return (newURL);
 }
 
+var boss={
+	currentHP:100,
+	HP:100,
+	STR: 7,
+	INT: 18,
+	special:function(){
+        return this.INT*this.INT;}
+    attack:function(){
+      	return 20+this.STR*2;}
+}
 
-	// // Load in the challenger image
-	// // (Boss 1)
-	// $('.boss').html(
-	// 	"<img src='https://www.seeklogo.net/wp-content/uploads/2015/09/new-google-favicon-logo.png' alt='' class='favico2 animated bounce' class='center'>"
-	// );
-	
-	// function normalstate(norm) {
-	// 	$(norm).css({ opacity: "1" });
-	// }
+var startRound = function(players,boss,turn){
+	if(turn<players.length){
+		if(players[turn].currentHP>0){
+			players[turn].turn=true;
+			playerMove(turn);
+			return;}
+		else{
+			turn+=1;
+			startRound(players,turn);
+			return;}}
+	if(turn>=5){
+		bossAI(players,boss);}
+}
 
-	// $('.favico').on('click', function() {
-	// 	rocketcss(this,'.favico2', 'rocketPulse');
-	// 	$('.favico2').addClass('targetPulse');
-	// 	setTimeout(function () {
-	// 		normalstate('.favico');
-	// 		$('.favico2').removeClass('targetPulse');
-	// 	}, 2300);
+var playerMove = function(turn){
+	$(".menu"+turn).animate({
+		opacity: 1,
+		}, 1500, function() {});
+}
 
-	// });
-
-
-	// var party = 0;
-
-	// while (party > 4){
-
-	// 	$.post(currentURL + "/api/characters", newURL,
-	// 		function(data){
-	// 			// Stats modal
-	// 			$('#modal1').openModal();
-	// 			$("#modHead").text(data[party].name + " is a great match for you!");
-	// 			$("#modImg").html( "<p>" + data[party].HP + "'<p>" );
-
-	// 			$('modal agree button').on('click', function() {
-	// 				$('.circle'+(party+1)+'').html("<img src='"+data[party].url+"/favicon.ico' alt='' class='favico animated bounce'>");
-	// 			};
-	// 		});
-
-	// 	party++;
-
-	// }
-
-	// $('.attack').on('click', function() {
-
-	// 	//USER Attack
-	// 	if (boss.dodge < something){
-	// 		"attack function"
-	// 	} else {
-	// 		alert("Attack missed!");
-	// 	}
-
-	// 	//BOSS Attack
-	// 	if (user.dodge < something){
-	// 		"boss attack function"
-	// 	} else {
-	// 		alert("Attack missed!");
-	// 	}
-
-	// });
-
-	// $('.defend').on('click', function() {
-
-	// 	//USER Defend
-
-	// 	//BOSS Defend
-
-	// });
-
-	// $('.special').on('click', function() {
-
-	// 	//USER Special
-
-	// 	//BOSS Special
-
-	// });
+var bossAI=function(players,boss){
+	if(parseInt(Math.random()*2)==1){
+		console.log("Hey!");
+		var threatRange=0;
+			var possibleTargets=[];
+			for(var i=0;i<players.length;i++){
+				threatRange+=players[i].currentHP;
+				possibleTargets.push(threatRange);}
+			randomNumber=((Math.random()*threatRange)+1);
+			randomNumber=parseInt(randomNumber);
+			console.log(possibleTargets);
+			for(var i=0;i<possibleTargets.length;i++){
+				if(randomNumber<=possibleTargets[i]){
+					console.log("Attacking target "+players[i].name);
+					boss.attack(players[i]);
+					startRound(players,boss,1);
+					return;}}}
+	else{
+		console.log("Ho!");
+		var threatRange=0;
+		var possibleTargets=[];
+		for(var i=0;i<players.length;i++){
+			threatRange+=players[i].currentHP;
+			possibleTargets.push(threatRange);}
+		randomNumber=((Math.random()*threatRange)+1);
+		randomNumber=parseInt(randomNumber);
+		console.log(possibleTargets);
+		for(var i=0;i<possibleTargets.length;i++){
+			if(randomNumber<=possibleTargets[i]){
+				console.log("Special attacking target "+players[i].name);
+				boss.special(players[i]);
+				startRound(players,boss,1);
+				return;}}}}
     
 });
