@@ -12,9 +12,16 @@ var charCount=0;
 module.exports=function(app){
 	app.post('/api/characters',function(req,res){
 
-		var URL = req.body;
+		var URL = JSON.stringify(req.body);
+		var newb = URL.split("{");
+		var newb2 = newb[1].split(":");
+		var newb3 = newb2[0].split('"');
 
-		characterCreate.createCharacter(URL,app,playerCharacters,function(x){
+		console.log(newb3[1]);
+
+		var yes = newb3[1];
+
+		characterCreate.createCharacter(yes,app,playerCharacters,function (x){
 			mons.sync().then(function () {
 				// Table created
 				return mons.create({
@@ -26,7 +33,7 @@ module.exports=function(app){
 				dodge:  x[0].dodge,
 				});
 			});
+		res.json(x);
 		});
-		
-		res.redirect('/');})
+	});
 }
