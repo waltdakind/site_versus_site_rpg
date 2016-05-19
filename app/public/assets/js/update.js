@@ -61,6 +61,9 @@ $("#formValidate").validate({
 						$("#modTxt").html("<ul> <li>Class: " + data[party-1].class + "</li> <li>HP: " + data[party-1].HP + "</li> <li>STR: " + data[party-1].STR + "</li> <li>INT: " + data[party-1].INT + "</li> <li>Dodge: " + data[party-1].dodge + "</li> </ul>");
 					},
 					complete: function() { // Callback for Modal close
+						data[party-1].attack=function(){
+							return (20+this.STR)+this.ATKbuff;}
+						data[party-1].special=findMySpec(data[party-1].class);
 						realTeam.push(data[party-1]);
 					},
 				});
@@ -145,35 +148,67 @@ function cleanURL(input){
 }
 
 var boss={
-	currentHP:100,
-	HP:100,
+	currentHP:9800,
+	HP:9800,
 	STR: 7,
 	INT: 18,
 	special:function(){
-        return this.INT*this.INT;}
+        return this.INT*this.INT;},
     attack:function(){
       	return 20+this.STR*2;}
 }
 
 var startRound = function(players,boss,turn){
-	if(turn<players.length){
-		if(players[turn].currentHP>0){
-			players[turn].turn=true;
+	console.log(turn);
+	if(turn<=players.length){
+		if(players[turn-1].currentHP>0){
+			players[turn-1].turn=true;
 			playerMove(turn);
 			return;}
 		else{
 			turn+=1;
-			startRound(players,turn);
+			startRound(players,boss,turn);
 			return;}}
 	if(turn>=5){
 		bossAI(players,boss);}
 }
 
 var playerMove = function(turn){
+	console.log(realTeam);
+	var playerNum=turn-1;
 	$(".menu"+turn).animate({
 		opacity: 1,
 		}, 1500, function() {});
-}
+	$(".menu"+turn+" .atkBtn").bind("click",function(){
+		boss.currentHP-=realTeam[playerNum].attack();
+		console.log(boss.currentHP);
+		$(".menu"+turn).animate({
+			opacity: 0,
+			}, 1500, function() {});
+		$(".menu"+turn+" .atkBtn").unbind("click");
+		$(".menu"+turn+" .spcBtn").unbind("click");
+		$(".menu"+turn+" .defBtn").unbind("click");
+		startRound(realTeam,boss,turn+1);})
+
+	$(".menu"+turn+" .spcBtn").bind("click",function(){
+		realTeam[playerNum].special(realTeam,boss,realTeam[playerNum].INT,realTeam[playerNum].STR);
+		console.log(boss.currentHP);
+		$(".menu"+turn).animate({
+			opacity: 0,
+			}, 1500, function() {});
+		$(".menu"+turn+" .atkBtn").unbind("click");
+		$(".menu"+turn+" .spcBtn").unbind("click");
+		$(".menu"+turn+" .defBtn").unbind("click");
+		startRound(realTeam,boss,turn+1);})
+
+	$(".menu"+turn+" .defBtn").bind("click",function(){
+		$(".menu"+turn).animate({
+			opacity: 0,
+			}, 1500, function() {});
+		$(".menu"+turn+" .atkBtn").unbind("click");
+		$(".menu"+turn+" .spcBtn").unbind("click");
+		$(".menu"+turn+" .defBtn").unbind("click");
+		startRound(realTeam,boss,turn+1);})}
 
 var bossAI=function(players,boss){
 	if(parseInt(Math.random()*2)==1){
@@ -188,8 +223,8 @@ var bossAI=function(players,boss){
 			console.log(possibleTargets);
 			for(var i=0;i<possibleTargets.length;i++){
 				if(randomNumber<=possibleTargets[i]){
-					console.log("Attacking target "+players[i].name);
-					boss.attack(players[i]);
+					console.log("Attacking target "+i);
+					players[i].currentHP-=boss.attack(players[i]);
 					startRound(players,boss,1);
 					return;}}}
 	else{
@@ -204,9 +239,90 @@ var bossAI=function(players,boss){
 		console.log(possibleTargets);
 		for(var i=0;i<possibleTargets.length;i++){
 			if(randomNumber<=possibleTargets[i]){
-				console.log("Special attacking target "+players[i].name);
-				boss.special(players[i]);
+				console.log("Special attacking target "+players[i].class);
+				players[i].currentHP-=boss.special(players[i]);
 				startRound(players,boss,1);
 				return;}}}}
-    
+
+var findMySpec=function(clasz){
+    switch (clasz){
+      case "Bard":
+        return function(playerCharacters,boss,INT,STR){
+          for(var i=0;i<playerCharacters.length;i++){
+            playerCharacters[i].dodge+=INT;
+            playerCharacters[i].dodgeBuff+=INT;}}
+        break;
+      case "Gunslinger":
+        return function(playerCharacters,boss,INT,STR){
+          var damage=0;
+          for(var i=0;i<INT;i++){
+            damage+=10;}
+          boss.currentHP-=damage;}
+        break;
+      case "Paladin":
+        return function(playerCharacters,boss,INT,STR){
+          this.currentHP+=INT*5;
+          boss.currentHP-=(20+STR);}
+        break;
+      case "Berserker":
+        return function(playerCharacters,boss,INT,STR){
+          this.ATKbuff+=STR*2;}
+        break;
+      case "Wizard":
+        return function(playerCharacters,boss,INT,STR){
+          var damage=0;
+          for(var i=0;i<INT;i++){
+            damage+=INT*2;}
+          boss.currentHP-=damage;}
+        break;
+      case "Thief":
+        return function(playerCharacters,boss,INT,STR){
+          boss.currentHP-=(25+STR+(INT*2));}
+        break;
+      case "Healer":
+        return function(playerCharacters,boss,INT,STR){
+          for(var i=0;i<playerCharacters.length;i++){
+            playerCharacters[i].currentHP+=INT*10;}}
+        break;
+      case "Ranger":
+        return function(playerCharacters,boss,INT,STR){
+          boss.currentHP-=(50+INT);}
+        break;
+      case "Explorer":
+        return function(playerCharacters,boss,INT,STR){
+          this.ATKbuff+=INT/2;
+          this.DEFbuff+=INT/2;}
+        break;
+      case "Monk":
+        return function(playerCharacters,boss,INT,STR){
+          var damage=0;
+          for(var i=0;i<INT;i++){
+            damage+=INT+STR;}
+          boss.currentHP-=damage;}
+        break;
+      case "Sorcerer":
+        return function(playerCharacters,boss,INT,STR){
+          boss.currentHP-=INT*INT;}
+        break;
+      case "Knight":
+        return function(playerCharacters,boss,INT,STR){
+          this.DEFbuff+=STR*INT;}
+        break;
+      case "Druid":
+        return function(playerCharacters,boss,INT,STR){
+          for(var i=0;i<playerCharacters.length;i++){
+            playerCharacters[i].ATKbuff+=INT;
+            playerCharacters[i].DEFbuff+=INT;
+            playerCharacters[i].currentHP+=INT*5;}}
+        break;
+      case "Alchemist":
+        return function(playerCharacters,boss,INT,STR){
+          this.ATKbuff+=INT*5;
+          this.currentHP+=INT*10;}
+        break;
+      case "Warrior":
+        return function(playerCharacters,boss,INT,STR){
+          boss.currentHP-=STR*STR;}
+        break;}}
+  
 });

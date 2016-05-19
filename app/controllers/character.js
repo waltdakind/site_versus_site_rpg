@@ -62,82 +62,82 @@ var characterCreate={
   findMySpec:function(clasz){
     switch (clasz){
       case "Bard":
-        return function(playerCharacters,INT){
+        return function(playerCharacters,boss,INT,STR){
           for(var i=0;i<playerCharacters.length;i++){
             playerCharacters[i].dodge+=INT;
             playerCharacters[i].dodgeBuff+=INT;}}
         break;
       case "Gunslinger":
-        return function(INT){
+        return function(playerCharacters,boss,INT,STR){
           var damage=0;
           for(var i=0;i<INT;i++){
             damage+=10;}
-          return damage;}
+          boss.currentHP-=damage;}
         break;
       case "Paladin":
-        return function(INT,STR){
+        return function(playerCharacters,boss,INT,STR){
           this.currentHP+=INT*5;
-          return (20+STR);}
+          boss.currentHP-=(20+STR);}
         break;
       case "Berserker":
-        return function(STR){
+        return function(playerCharacters,boss,INT,STR){
           this.ATKbuff+=STR*2;}
         break;
       case "Wizard":
-        return function(INT){
+        return function(playerCharacters,boss,INT,STR){
           var damage=0;
           for(var i=0;i<INT;i++){
             damage+=INT*2;}
-          return damage;}
+          boss.currentHP-=damage;}
         break;
       case "Thief":
-        return function(INT,STR){
-          return (25+STR+(INT*2));}
+        return function(playerCharacters,boss,INT,STR){
+          boss.currentHP-=(25+STR+(INT*2));}
         break;
       case "Healer":
-        return function(playerCharacters,INT){
+        return function(playerCharacters,boss,INT,STR){
           for(var i=0;i<playerCharacters.length;i++){
             playerCharacters[i].currentHP+=INT*10;}}
         break;
       case "Ranger":
-        return function(INT){
+        return function(playerCharacters,boss,INT,STR){
           return (50+INT);}
         break;
       case "Explorer":
-        return function(INT){
+        return function(playerCharacters,boss,INT,STR){
           this.ATKbuff+=INT/2;
           this.DEFbuff+=INT/2;}
         break;
       case "Monk":
-        return function(INT,STR){
+        return function(playerCharacters,boss,INT,STR){
           var damage=0;
           for(var i=0;i<INT;i++){
             damage+=INT+STR;}
-          return damage;}
+          boss.currentHP-=damage;}
         break;
       case "Sorcerer":
-        return function(INT){
-          return INT*INT;}
+        return function(playerCharacters,boss,INT,STR){
+          boss.currentHP-=INT*INT;}
         break;
       case "Knight":
-        return function(STR,INT){
+        return function(playerCharacters,boss,INT,STR){
           this.DEFbuff+=STR*INT;}
         break;
       case "Druid":
-        return function(playerCharacters,INT){
+        return function(playerCharacters,boss,INT,STR){
           for(var i=0;i<playerCharacters.length;i++){
             playerCharacters[i].ATKbuff+=INT;
             playerCharacters[i].DEFbuff+=INT;
             playerCharacters[i].currentHP+=INT*5;}}
         break;
       case "Alchemist":
-        return function(INT){
+        return function(playerCharacters,boss,INT,STR){
           this.ATKbuff+=INT*5;
           this.currentHP+=INT*10;}
         break;
       case "Warrior":
-        return function(STR){
-          return STR*STR;}
+        return function(playerCharacters,boss,INT,STR){
+          boss.currentHP-=STR*STR;}
         break;}},
 
   findMyHeart:function(data){
