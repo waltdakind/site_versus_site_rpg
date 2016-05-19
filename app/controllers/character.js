@@ -52,7 +52,11 @@ var characterCreate={
         break;
       case 'Sports':
         classz = "Warrior";
-        break;}
+        break;
+      default:
+        classz = "Warrior";
+        break;      
+    }
     return optz[1], classz;},
 
   findMySpec:function(clasz){
