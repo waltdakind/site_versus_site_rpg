@@ -228,9 +228,14 @@ var bossAI=function(players,boss){
 			for(var i=0;i<possibleTargets.length;i++){
 				if(randomNumber<=possibleTargets[i]){
 					console.log("Attacking target "+i);
-					players[i].currentHP-=boss.attack(players[i]);
-					startRound(players,boss,1);
-					return;}}}
+					if((Math.random()*100)+1>players[i].dodge){
+						players[i].currentHP-=boss.special(players[i]);
+						playersLoss(players,boss);
+						return;}
+					else{
+						console.log("PLAYER DODGED!");
+						playersLoss(players,boss);
+						return;}}}}
 	else{
 		var threatRange=0;
 		var possibleTargets=[];
@@ -243,9 +248,14 @@ var bossAI=function(players,boss){
 		for(var i=0;i<possibleTargets.length;i++){
 			if(randomNumber<=possibleTargets[i]){
 				console.log("Special attacking target "+players[i].class);
-				players[i].currentHP-=boss.special(players[i]);
-				winLoss(players,boss);
-				return;}}}}
+				if((Math.random()*100)+1>players[i].dodge){
+					players[i].currentHP-=boss.special(players[i]);
+					playersLoss(players,boss);
+					return;}
+				else{
+					console.log("PLAYER DODGED!");
+					playersLoss(players,boss);
+					return;}}}}}
 
 var playersLoss=function(players,boss){
 	var dead=0;
@@ -296,7 +306,8 @@ var findMySpec=function(clasz){
       case "Healer":
         return function(playerCharacters,boss,INT,STR){
           for(var i=0;i<playerCharacters.length;i++){
-            playerCharacters[i].currentHP+=INT*10;}}
+          	if(playerCharacters[i].currentHP<playerCharacters[i].HP){
+            	playerCharacters[i].currentHP+=INT*10;}}}
         break;
       case "Ranger":
         return function(playerCharacters,boss,INT,STR){
