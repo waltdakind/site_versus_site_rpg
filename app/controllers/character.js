@@ -143,7 +143,7 @@ var characterCreate={
   findMyHeart:function(data){
     if(parseInt(Math.abs(parseInt(data.trafficData.usageStatistics.usageStatistic[0].pageViews.perMillion.value.replace(/,/g,""))*parseInt(data.trafficData.usageStatistics.usageStatistic[0].pageViews.perMillion.delta)/100))<1000){
         console.log("Hello");
-        if(parseInt(data.trafficData.usageStatistics.usageStatistic[0].reach.perMillion.value.replace(/,/g,""))>10000){
+        if(parseInt(data.trafficData.usageStatistics.usageStatistic[0].reach.perMillion.value.replace(/,/g,""))>8000){
             return(parseInt(Math.abs(parseInt(data.trafficData.usageStatistics.usageStatistic[0].reach.perMillion.value.replace(/,/g,""))*parseInt(data.trafficData.usageStatistics.usageStatistic[0].reach.perMillion.delta)/100)))}
         else{
           return(parseInt(data.trafficData.usageStatistics.usageStatistic[0].reach.perMillion.value.replace(/,/g,"")));}}

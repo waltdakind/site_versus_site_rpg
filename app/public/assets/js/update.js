@@ -170,8 +170,7 @@ var startRound = function(players,boss,turn){
 			startRound(players,boss,turn);
 			return;}}
 	if(turn>=5){
-		bossAI(players,boss);}
-}
+		bossAI(players,boss);}}
 
 var playerMove = function(turn){
 	console.log(realTeam);
@@ -188,6 +187,9 @@ var playerMove = function(turn){
 		$(".menu"+turn+" .atkBtn").unbind("click");
 		$(".menu"+turn+" .spcBtn").unbind("click");
 		$(".menu"+turn+" .defBtn").unbind("click");
+		if(boss.currentHP<=0){
+			$("#animateh1").text("YOU WIN!");
+			return;}
 		startRound(realTeam,boss,turn+1);})
 
 	$(".menu"+turn+" .spcBtn").bind("click",function(){
@@ -199,6 +201,9 @@ var playerMove = function(turn){
 		$(".menu"+turn+" .atkBtn").unbind("click");
 		$(".menu"+turn+" .spcBtn").unbind("click");
 		$(".menu"+turn+" .defBtn").unbind("click");
+		if(boss.currentHP<=0){
+			$("#animateh1").text("YOU WIN!");
+			return;}
 		startRound(realTeam,boss,turn+1);})
 
 	$(".menu"+turn+" .defBtn").bind("click",function(){
@@ -212,7 +217,6 @@ var playerMove = function(turn){
 
 var bossAI=function(players,boss){
 	if(parseInt(Math.random()*2)==1){
-		console.log("Hey!");
 		var threatRange=0;
 			var possibleTargets=[];
 			for(var i=0;i<players.length;i++){
@@ -228,7 +232,6 @@ var bossAI=function(players,boss){
 					startRound(players,boss,1);
 					return;}}}
 	else{
-		console.log("Ho!");
 		var threatRange=0;
 		var possibleTargets=[];
 		for(var i=0;i<players.length;i++){
@@ -241,8 +244,19 @@ var bossAI=function(players,boss){
 			if(randomNumber<=possibleTargets[i]){
 				console.log("Special attacking target "+players[i].class);
 				players[i].currentHP-=boss.special(players[i]);
-				startRound(players,boss,1);
+				winLoss(players,boss);
 				return;}}}}
+
+var playersLoss=function(players,boss){
+	var dead=0;
+	for(var i=0;i<players.length;i++){
+		if(players[i].currentHP<=0){
+			dead+=1;}}
+	if(dead==4){
+		$("#animateh1").text("YOU LOSE! TRY AGAIN!");
+		return;}
+	else{
+		startRound(players,boss,1);}}
 
 var findMySpec=function(clasz){
     switch (clasz){
