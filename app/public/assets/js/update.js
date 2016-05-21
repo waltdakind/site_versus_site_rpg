@@ -294,7 +294,7 @@ var bossAI=function(players,boss){
 						playersLoss(players,boss);
 						return;}
 					else{
-						console.log("PLAYER DODGED!");
+						Materialize.toast(crew[i] + ' dodged the attack!', 3000);
 						playersLoss(players,boss);
 						return;}}}}
 	else{
@@ -326,7 +326,7 @@ var bossAI=function(players,boss){
 					playersLoss(players,boss);
 					return;}
 				else{
-					console.log("PLAYER DODGED!");
+					Materialize.toast(crew[i] + ' dodged the attack!', 3000);
 					playersLoss(players,boss);
 					return;}}}}}
 
