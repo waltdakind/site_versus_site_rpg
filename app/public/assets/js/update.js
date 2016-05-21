@@ -149,8 +149,14 @@ function cleanURL(input){
 		var newURL = (subHead[1] + "." + subHead[2]).toString();
 		crew.push(subHead[1]);
 	} else {
+		var goCheck = subHead[1];
+		if (goCheck == "go"){
+			var newURL = (subHead[0] + "." + subHead[1] + "." + subHead[2]).toString();
+			crew.push(subHead[0]);
+		} else {
 		var newURL = (subHead[0] + "." + subHead[1]).toString();
 		crew.push(subHead[0]);
+		}
 	}
 	return (newURL);
 }
@@ -219,7 +225,7 @@ var playerMove = function(turn){
 		if(boss.currentHP<=0){
 			$("#animateh1").text("YOU WIN!");
 			$(".HP5").text(0);
-			$(".circle5").html("<img src='assets/images/error.jpg' alt='' class='favico5 hidden animated bounce'>");
+			$(".circle5").html("<img src='assets/images/error2.png' alt='' class='favico5 animated bounce'>");
 			return;}
 		startRound(realTeam,boss,turn+1);})
 
@@ -236,7 +242,7 @@ var playerMove = function(turn){
 		if(boss.currentHP<=0){
 			$("#animateh1").text("YOU WIN!");
 			$(".HP5").text(0);
-			$(".circle5").html("<img src='assets/images/error.jpg' alt='' class='favico5 hidden animated bounce'>");
+			$(".circle5").html("<img src='assets/images/error2.png' alt='' class='favico5 animated bounce'>");
 			return;}
 		startRound(realTeam,boss,turn+1);})
 
