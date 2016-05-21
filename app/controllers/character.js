@@ -181,10 +181,9 @@ var characterCreate={
 
   createCharacter:function(newURL,app,playerCharacters,cb){
     client({'Action': 'UrlInfo','Url': newURL,'ResponseGroup': 'ContentData,Related,TrafficData,LinksInCount'}, function (err, data){
-        if (data.related.categories == undefined){
-
-        }
-        console.log(data.related.categories.categoryData);
+        // if (data.related.categories == undefined){
+        //   // idk
+        // }
         playerCharacters.push(new characterCreate.Character(data));
         cb(playerCharacters);
         console.log(playerCharacters);
