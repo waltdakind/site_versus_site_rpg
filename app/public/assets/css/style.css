@@ -159,7 +159,7 @@ h1 {
 }
 
 .spacebro {
-    line-height: 5;
+    line-height: 7;
 }
 
 .button-col {
@@ -178,5 +178,16 @@ h1 {
     padding-left: 34%;
 }
 
+.progress .determinate {
+    background-color: #26A653;
+} 
 
+.HPdisplay {
+    color: white;
+    display: none;
+}
+
+.progress {
+    display: none;
+}
 
