@@ -67,13 +67,13 @@ $("#formValidate").validate({
 					out_duration: 200, // Transition out duration
 					ready: function () { // Callback for Modal open
 						$("#modHead").text("Do you want " + newURL + " on your team?");
-						$("#modTxt").html("<ul> <li>Class: " + data[party-1].class + "</li> <li>HP: " + data[party-1].HP + "</li> <li>STR: " + data[party-1].STR + "</li> <li>INT: " + data[party-1].INT + "</li> <li>Dodge: " + data[party-1].dodge + "</li> </ul>");
+						$("#modTxt").html("<ul> <li>Class: " + data[party].class + "</li> <li>HP: " + data[party].HP + "</li> <li>STR: " + data[party].STR + "</li> <li>INT: " + data[party].INT + "</li> <li>Dodge: " + data[party].dodge + "</li> </ul>");
 					},
 					complete: function() { // Callback for Modal close
-							data[party-1].attack=function(){
+							data[party].attack=function(){
 								return (20+this.STR)+this.ATKbuff;}
-							data[party-1].special=findMySpec(data[party-1].class);
-							realTeam.push(data[party-1]);
+							data[party].special=findMySpec(data[party].class);
+							realTeam.push(data[party]);
 						if (partyWait > 4){
 							startGame(realTeam);
 						}
