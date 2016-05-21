@@ -273,8 +273,7 @@ var findMySpec=function(clasz){
       case "Bard":
         return function(playerCharacters,boss,INT,STR){
           for(var i=0;i<playerCharacters.length;i++){
-            playerCharacters[i].dodge+=INT;
-            playerCharacters[i].dodgeBuff+=INT;}}
+            playerCharacters[i].dodge+=INT;}}
         break;
       case "Gunslinger":
         return function(playerCharacters,boss,INT,STR){
