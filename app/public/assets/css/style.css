@@ -1,6 +1,10 @@
+html {
+    min-height: 100%;
+}
 
 body{   
   background: linear-gradient(to bottom right, #00303f, #02c8a7);
+  min-height: 100%;
   background-size: 100%; /* Standard syntax */
 }
 
