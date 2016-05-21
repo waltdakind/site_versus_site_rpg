@@ -18,6 +18,25 @@ body{
     font-size: 50px;
 }
 
+.infoModal-content{
+    font-family: 'Fjalla One', sans-serif;
+    padding: 14px;
+    font-size: 18px;
+    background-color: #005952;
+    color: white;
+    opacity: 80%;
+    letter-spacing: 1px;
+}
+
+.infoModal-content h4{
+    font-family: 'Fjalla One', sans-serif;
+    padding: 14px;
+    font-size: 50px;
+    background-color: #005952;
+    color: #f53240;
+    opacity: 80%;
+}
+
 #urlBox{
     width: 635px;
 }
@@ -45,6 +64,8 @@ h1 {
     background-color: #005952;
     color: white;
     opacity: 80%;
+    font-family: 'Fjalla One', sans-serif;
+    letter-spacing: 1px;
 }
 
 #modTxt{
@@ -159,7 +180,7 @@ h1 {
 }
 
 .spacebro {
-    line-height: 7;
+    line-height: 5;
 }
 
 .button-col {

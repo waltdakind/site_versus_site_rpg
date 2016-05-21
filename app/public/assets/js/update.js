@@ -6,6 +6,12 @@ var team = [];
 var realTeam = [];
 var crew = [];
 
+//LAUNCH INSTRUCTION MODAL
+$( document ).ready(function(){
+	$("#infoModal").openModal();
+});
+//=========================
+
 $("#formValidate").validate({
 	rules: {
 		curl: {
