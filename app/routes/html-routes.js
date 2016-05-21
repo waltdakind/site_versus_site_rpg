@@ -9,6 +9,6 @@ module.exports = function(app){
 	});
 	// Default route for home page
 	app.use(function(req,res){
-		res.sendFile(path.join(__dirname + '/../../test/public/index.html'));
+		res.sendFile(path.join(__dirname + '/../public/index.html'));
 	});
 }

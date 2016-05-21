@@ -5,8 +5,14 @@ var client = awis({
 
 var characterCreate={
   findMyCat:function(data){
-    var catz = data.related.categories.categoryData[0].absolutePath;
-    var optz = catz.split("/");
+    var catz = data.related.categories.categoryData;
+    if (catz.length > 1){
+      var dogz = data.related.categories.categoryData[0].absolutePath;
+      var optz = dogz.split("/");
+    } else {
+      var dogz = data.related.categories.categoryData.absolutePath;
+      var optz = dogz.split("/");
+    }
     switch (optz[1]) {
       case 'Arts':
         classz = "Bard";
@@ -152,26 +158,34 @@ var characterCreate={
         return(parseInt(Math.abs(parseInt(data.trafficData.usageStatistics.usageStatistic[0].pageViews.perMillion.value.replace(/,/g,""))*parseInt(data.trafficData.usageStatistics.usageStatistic[0].pageViews.perMillion.delta)/100)));}},
 
   Character:function(data){
-    this.class=characterCreate.findMyCat(data),
-    this.HP=characterCreate.findMyHeart(data),
-    this.currentHP=this.HP,
-    this.STR=data.contentData.linksInCount.length,
-    this.INT=parseInt(data.trafficData.usageStatistics.usageStatistic[0].pageViews.perUser.value),
-    this.dodge=parseInt(parseInt(data.contentData.speed.percentile)/4),
-    this.ATKbuff=0,
-    this.DEFbuff=0,
-    this.DodgeBuff=0,
-    this.special=characterCreate.findMySpec(this.class),
-    this.attack=function(){
-      return (20+this.STR)+this.ATKbuff;},
-    this.defend=function(){
-      return (4+DEFbuff);}},
+    if (data == undefined){
+      this.class = 'undefined'
+    } else {
+      this.class=characterCreate.findMyCat(data),
+      this.HP=characterCreate.findMyHeart(data),
+      this.currentHP=this.HP,
+      this.STR=data.contentData.linksInCount.length,
+      this.INT=parseInt(data.trafficData.usageStatistics.usageStatistic[0].pageViews.perUser.value),
+      this.dodge=parseInt(parseInt(data.contentData.speed.percentile)/4),
+      this.ATKbuff=0,
+      this.DEFbuff=0,
+      this.DodgeBuff=0,
+      this.special=characterCreate.findMySpec(this.class),
+      this.attack=function(){
+        return (20+this.STR)+this.ATKbuff;},
+      this.defend=function(){
+        return (4+DEFbuff);}
+      }
+    },
 
 
   createCharacter:function(newURL,app,playerCharacters,cb){
     client({'Action': 'UrlInfo','Url': newURL,'ResponseGroup': 'ContentData,Related,TrafficData,LinksInCount'}, function (err, data){
-        playerCharacters.push(new characterCreate.Character(data));
-        cb(playerCharacters);
+        // if (data.related.categories == undefined){
+        //   // idk
+        // }
+        thing=new characterCreate.Character(data);
+        cb(thing);
         console.log(playerCharacters);
         app.get('/',function(req,res){
           res.json(data);

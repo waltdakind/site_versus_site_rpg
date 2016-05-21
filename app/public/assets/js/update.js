@@ -1,8 +1,16 @@
 $( document ).ready(function() {
 
 var party = 0;
+var partyWait = 0;
 var team = [];
 var realTeam = [];
+var crew = [];
+
+//LAUNCH INSTRUCTION MODAL
+$( document ).ready(function(){
+	$("#infoModal").openModal();
+});
+//=========================
 
 $("#formValidate").validate({
 	rules: {
@@ -37,8 +45,8 @@ $("#formValidate").validate({
 			var input = $("#curl").val();
 
 			$("#curl").val("http://");
-
-			party++;
+			
+			partyWait++;
 
 			team.push(input);
 
@@ -50,6 +58,7 @@ $("#formValidate").validate({
 			
 			var currentURL = window.location.origin;
 			$.post(currentURL + "/api/characters", newURL, function(data){
+				console.log(data);
 				// Open Stats Modal
 				$('#modal1').openModal({
 					dismissible: false, // Modal canNOT be dismissed by clicking outside of the modal
@@ -58,20 +67,28 @@ $("#formValidate").validate({
 					out_duration: 200, // Transition out duration
 					ready: function () { // Callback for Modal open
 						$("#modHead").text("Do you want " + newURL + " on your team?");
-						$("#modTxt").html("<ul> <li>Class: " + data[party-1].class + "</li> <li>HP: " + data[party-1].HP + "</li> <li>STR: " + data[party-1].STR + "</li> <li>INT: " + data[party-1].INT + "</li> <li>Dodge: " + data[party-1].dodge + "</li> </ul>");
+						$("#modTxt").html("<ul> <li>Class: " + data.class + "</li> <li>HP: " + data.HP + "</li> <li>STR: " + data.STR + "</li> <li>INT: " + data.INT + "</li> <li>Dodge: " + data.dodge + "</li> </ul>");
 					},
 					complete: function() { // Callback for Modal close
-						data[party-1].attack=function(){
-							return (20+this.STR)+this.ATKbuff;}
-						data[party-1].special=findMySpec(data[party-1].class);
-						realTeam.push(data[party-1]);
+							data.attack=function(){
+								return (20+this.STR)+this.ATKbuff;}
+							data.special=findMySpec(data.class);
+							realTeam.push(data);
+						if (partyWait > 4){
+							startGame(realTeam);
+						}
 					},
 				});
-
-				$('.A').on('click', function() {
+				party++;
+				$('.A').bind("click", function() {
+					if (party == 4){
+						partyWait++;
+						console.log(partyWait);
+					}
 					$('.circle'+(party)+'').html("<img src='"+input+"/favicon.ico' alt='' class='favico"+(party)+" animated bounce'>");
+					$('.A').unbind("click");
 				});
-				$('.D').on('click', function() {
+				$('.D').bind('click', function() {
 					switch (party){
 						case 0:
 							party = 0;
@@ -85,17 +102,15 @@ $("#formValidate").validate({
 						case 3:
 							party = 2;
 							break;
+						case 4:
+							party = 3;
+							break;
 					}
 					
 					console.log("Nah bro...");
+					$('.D').unbind('click');
 				});
-
 			});
-
-			if (team.length == 4){
-				// console.log("2" +team.length);
-				startGame(realTeam);
-			}
 
 			return false;
 
@@ -109,7 +124,7 @@ $("#formValidate").validate({
 
 function startGame(realTeam) {
 	$(".topRow").empty();
-	$(".topRow").html("<h1 class='center-align animated bounce' id='animateh1'>ROUTE 1</h1>");
+	$(".topRow").html("<h1 class='center-align animated bounce' id='animateh1'>ROUND 1</h1>");
 	$(".topRow").animate({
 		opacity: 1,
 		}, 1500, function() {
@@ -118,18 +133,15 @@ function startGame(realTeam) {
 
 	$(".midRow").empty();
 	$(".midRow").addClass("centerDat invs");
-	$(".midRow").html("<div class='circle5'> <img src='https://www.seeklogo.net/wp-content/uploads/2015/09/new-google-favicon-logo.png' alt='' class='favico5 animated bounce' class='center'></div>");
+	$(".midRow").html("<div class='boss circle5 z-depth-4'> <img src='https://www.seeklogo.net/wp-content/uploads/2015/09/new-google-favicon-logo.png' alt='' class='favico5 animated bounce' class='center'></div>");
+	$(".boss").append("<h4 class='center-align HPdisplay HP5'></h4> <div class='progress'> <div class='determinate bar5' style='width: 100%'> </div> </div>");
 	$(".midRow").animate({
 		opacity: 1,
 		}, 1500, function() {
 			console.log("Complete!")
 	});
 
-	// $(".invs").animate({
-	// 	opacity: 1,
-	// 	}, 1500, function() {
-	// 		console.log("Complete!")
-	// });
+	$(".progress").css('display', 'block');
 
 	startRound(realTeam,boss,1);
 }
@@ -141,8 +153,16 @@ function cleanURL(input){
 	console.log(subHead);
 	if ( subHead[0] == "www" ){
 		var newURL = (subHead[1] + "." + subHead[2]).toString();
+		crew.push(subHead[1]);
 	} else {
+		var goCheck = subHead[1];
+		if (goCheck == "go"){
+			var newURL = (subHead[0] + "." + subHead[1] + "." + subHead[2]).toString();
+			crew.push(subHead[0]);
+		} else {
 		var newURL = (subHead[0] + "." + subHead[1]).toString();
+		crew.push(subHead[0]);
+		}
 	}
 	return (newURL);
 }
@@ -175,12 +195,33 @@ var startRound = function(players,boss,turn){
 var playerMove = function(turn){
 	console.log(realTeam);
 	var playerNum=turn-1;
+	
+	$(".HPdisplay").css('display', 'block');
+	$(".HP5").css('padding-top', '7%');
+	$(".HP"+turn).text(realTeam[playerNum].currentHP);
+
 	$(".menu"+turn).animate({
 		opacity: 1,
 		}, 1500, function() {});
 	$(".menu"+turn+" .atkBtn").bind("click",function(){
 		boss.currentHP-=realTeam[playerNum].attack();
 		console.log(boss.currentHP);
+
+		var bossNewHP = (boss.currentHP);
+		var bossOldHP = (boss.HP);
+		var bossHPpercent = ((bossNewHP/bossOldHP) * 100);
+		$(".HP5").text(bossNewHP);
+		$(".bar5").css('width', bossHPpercent+'%');
+
+		if (bossHPpercent > 50) {
+			$(".bar5").css('background-color', '#26A653');
+		} else if (bossHPpercent > 20) {
+			$(".bar5").css('background-color', '#DAD300');
+		} else {
+			$(".bar5").css('background-color', '#F53240');
+		}
+
+		Materialize.toast(realTeam[playerNum].attack() + ' damage inflicted on the boss', 3000);
 		$(".menu"+turn).animate({
 			opacity: 0,
 			}, 1500, function() {});
@@ -189,11 +230,14 @@ var playerMove = function(turn){
 		$(".menu"+turn+" .defBtn").unbind("click");
 		if(boss.currentHP<=0){
 			$("#animateh1").text("YOU WIN!");
+			$(".HP5").text(0);
+			$(".circle5").html("<img src='assets/images/error2.png' alt='' class='favico5 animated bounce'>");
 			return;}
 		startRound(realTeam,boss,turn+1);})
 
 	$(".menu"+turn+" .spcBtn").bind("click",function(){
 		realTeam[playerNum].special(realTeam,boss,realTeam[playerNum].INT,realTeam[playerNum].STR);
+		Materialize.toast(crew[playerNum] + ' used their special!', 3000);
 		console.log(boss.currentHP);
 		$(".menu"+turn).animate({
 			opacity: 0,
@@ -203,10 +247,13 @@ var playerMove = function(turn){
 		$(".menu"+turn+" .defBtn").unbind("click");
 		if(boss.currentHP<=0){
 			$("#animateh1").text("YOU WIN!");
+			$(".HP5").text(0);
+			$(".circle5").html("<img src='assets/images/error2.png' alt='' class='favico5 animated bounce'>");
 			return;}
 		startRound(realTeam,boss,turn+1);})
 
 	$(".menu"+turn+" .defBtn").bind("click",function(){
+		Materialize.toast(crew[playerNum] + ' defended itself.', 3000);
 		$(".menu"+turn).animate({
 			opacity: 0,
 			}, 1500, function() {});
@@ -228,8 +275,22 @@ var bossAI=function(players,boss){
 			for(var i=0;i<possibleTargets.length;i++){
 				if(randomNumber<=possibleTargets[i]){
 					console.log("Attacking target "+i);
+					Materialize.toast("The boss attacked " + crew[i] + ' !', 3000);
 					if((Math.random()*100)+1>players[i].dodge){
 						players[i].currentHP-=boss.special(players[i]);
+						var playerNewHP = (players[i].currentHP-=boss.special(players[i]));
+						var playerOldHP = (players[i].HP);
+						var HPpercent = ((playerNewHP/playerOldHP) * 100);
+						$(".HP"+(i+1)).text(playerNewHP);
+						$(".bar"+(i+1)).css('width', HPpercent+'%');
+
+						if (HPpercent > 50) {
+							$(".bar"+(i+1)).css('background-color', '#26A653');
+						} else if (HPpercent > 20) {
+							$(".bar"+(i+1)).css('background-color', '#DAD300');
+						} else {
+							$(".bar"+(i+1)).css('background-color', '#F53240');
+						}
 						playersLoss(players,boss);
 						return;}
 					else{
@@ -248,8 +309,20 @@ var bossAI=function(players,boss){
 		for(var i=0;i<possibleTargets.length;i++){
 			if(randomNumber<=possibleTargets[i]){
 				console.log("Special attacking target "+players[i].class);
+				Materialize.toast("The boss used a special attack on " + crew[i] + ' !', 3000);
 				if((Math.random()*100)+1>players[i].dodge){
 					players[i].currentHP-=boss.special(players[i]);
+					var playerNewHP = (players[i].currentHP-=boss.special(players[i]));
+					var playerOldHP = (players[i].HP);
+					var HPpercent = ((playerNewHP/playerOldHP) * 100);
+					$(".bar"+(i+1)).css('width', HPpercent+'%');
+					if (HPpercent > 50) {
+						$(".bar"+(i+1)).css('background-color', '#26A653');
+					} else if (HPpercent > 20) {
+						$(".bar"+(i+1)).css('background-color', '#DAD300');
+					} else {
+						$(".bar"+(i+1)).css('background-color', '#F53240');
+					}
 					playersLoss(players,boss);
 					return;}
 				else{
@@ -261,6 +334,8 @@ var playersLoss=function(players,boss){
 	var dead=0;
 	for(var i=0;i<players.length;i++){
 		if(players[i].currentHP<=0){
+			$(".HP"+(i+1)).text(0);
+			$(".circle"+(i+1)).html("<img src='assets/images/error2.png' alt='' class='favico"+(i+1)+" animated bounce'>");
 			dead+=1;}}
 	if(dead==4){
 		$("#animateh1").text("YOU LOSE! TRY AGAIN!");
