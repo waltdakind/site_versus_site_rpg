@@ -184,8 +184,8 @@ var characterCreate={
         // if (data.related.categories == undefined){
         //   // idk
         // }
-        playerCharacters.push(new characterCreate.Character(data));
-        cb(playerCharacters);
+        thing=new characterCreate.Character(data);
+        cb(thing);
         console.log(playerCharacters);
         app.get('/',function(req,res){
           res.json(data);

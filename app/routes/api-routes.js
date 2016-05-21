@@ -33,6 +33,7 @@ module.exports=function(app){
 				dodge:  x[0].dodge,
 				});
 			});
+		console.log(x);
 		res.json(x);
 		});
 	});

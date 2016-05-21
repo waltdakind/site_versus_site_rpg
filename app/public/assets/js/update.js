@@ -45,8 +45,7 @@ $("#formValidate").validate({
 			var input = $("#curl").val();
 
 			$("#curl").val("http://");
-
-			party++;
+			
 			partyWait++;
 
 			team.push(input);
@@ -59,6 +58,7 @@ $("#formValidate").validate({
 			
 			var currentURL = window.location.origin;
 			$.post(currentURL + "/api/characters", newURL, function(data){
+				console.log(data);
 				// Open Stats Modal
 				$('#modal1').openModal({
 					dismissible: false, // Modal canNOT be dismissed by clicking outside of the modal
@@ -67,19 +67,19 @@ $("#formValidate").validate({
 					out_duration: 200, // Transition out duration
 					ready: function () { // Callback for Modal open
 						$("#modHead").text("Do you want " + newURL + " on your team?");
-						$("#modTxt").html("<ul> <li>Class: " + data[party].class + "</li> <li>HP: " + data[party].HP + "</li> <li>STR: " + data[party].STR + "</li> <li>INT: " + data[party].INT + "</li> <li>Dodge: " + data[party].dodge + "</li> </ul>");
+						$("#modTxt").html("<ul> <li>Class: " + data.class + "</li> <li>HP: " + data.HP + "</li> <li>STR: " + data.STR + "</li> <li>INT: " + data.INT + "</li> <li>Dodge: " + data.dodge + "</li> </ul>");
 					},
 					complete: function() { // Callback for Modal close
-							data[party].attack=function(){
+							data.attack=function(){
 								return (20+this.STR)+this.ATKbuff;}
-							data[party].special=findMySpec(data[party].class);
-							realTeam.push(data[party]);
+							data.special=findMySpec(data.class);
+							realTeam.push(data);
 						if (partyWait > 4){
 							startGame(realTeam);
 						}
 					},
 				});
-
+				party++;
 				$('.A').bind("click", function() {
 					if (party == 4){
 						partyWait++;
