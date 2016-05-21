@@ -335,7 +335,7 @@ var playersLoss=function(players,boss){
 	for(var i=0;i<players.length;i++){
 		if(players[i].currentHP<=0){
 			$(".HP"+(i+1)).text(0);
-			$(".circle"+(i+1)).html("<img src='assets/images/error.jpg' alt='' class='favico"+(i+1)+" hidden animated bounce'>");
+			$(".circle"+(i+1)).html("<img src='assets/images/error2.png' alt='' class='favico"+(i+1)+" animated bounce'>");
 			dead+=1;}}
 	if(dead==4){
 		$("#animateh1").text("YOU LOSE! TRY AGAIN!");
