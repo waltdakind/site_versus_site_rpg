@@ -1,46 +1,80 @@
+html {
+    min-height: 100%;
+}
 
-body{	
+body{   
   background: linear-gradient(to bottom right, #00303f, #02c8a7);
+  min-height: 100%;
   background-size: 100%; /* Standard syntax */
 }
 
 #logoId{
-	margin-top: 55px;
-	color: #f53240;
-	font-family: 'Fjalla One', sans-serif;
-	font-size: 150px;
+    margin-top: 55px;
+    color: #f53240;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 150px;
 }
 
 #newSiteHeader{
-	margin-top: 70px;
-	color: #f53240;
-	font-family: 'Fjalla One', sans-serif;
-	font-size: 50px;
+    margin-top: 70px;
+    color: #f53240;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 50px;
+}
+
+.infoModal-content{
+    font-family: 'Fjalla One', sans-serif;
+    padding: 14px;
+    font-size: 18px;
+    background-color: #005952;
+    color: white;
+    opacity: 80%;
+    letter-spacing: 1px;
+}
+
+.infoModal-content h4{
+    font-family: 'Fjalla One', sans-serif;
+    padding: 14px;
+    font-size: 50px;
+    background-color: #005952;
+    color: #f53240;
+    opacity: 80%;
 }
 
 #urlBox{
-	width: 635px;
+    width: 635px;
 }
 
 #addButton{
-	background-color: #f53240;
-	color: white;
-	float: right;
-	margin-top: -36px;
-	height: 37px;
+    background-color: #f53240;
+    color: white;
+    float: right;
+    margin-top: -36px;
+    height: 37px;
 }
 
 h1 {
-	font-family: 'Fjalla One', sans-serif;
-	color: #f53240;
-	font-size: 100px;
-	
+    font-family: 'Fjalla One', sans-serif;
+    color: #f53240;
+    font-size: 100px;
+    
 }
 
 #animateh1:hover {
     -webkit-transform: perspective(500) rotateX(90deg) translateY(-3em) translateZ(3em);
 }
 
+.modal-content{
+    background-color: #005952;
+    color: white;
+    opacity: 80%;
+    font-family: 'Fjalla One', sans-serif;
+    letter-spacing: 1px;
+}
+
+#modTxt{
+    font-size: 24px;
+}
 .circle1, .circle2, .circle3, .circle4 {
     -moz-border-radius: 80px/80px;
     -webkit-border-radius: 80px 80px;
@@ -48,6 +82,7 @@ h1 {
     border:solid 2px #fff;
     width:150px;
     height:150px;   
+    animation: slideUp 3s;
 }
 
 .menu1, .menu2, .menu3, .menu4 {
@@ -55,24 +90,34 @@ h1 {
     width: 150%;
     margin: 1.5rem 0 1rem 0;
     border-radius: 200px/50px;
-    border: solid 2px #000;
+    border: solid 2px #fff;
     background-color: rgba(0,0,0,0.3);
+    float: left;
 }
 
-.atkBtn, .defBtn, .spcBtn {
-	background-color: rgba(245, 50, 64, 0.73);
-    border: solid 1px #000;
+.atkBtn , .defBtn , .spcBtn {
+    background-color: #fff;
+    color: #009181;
+    border: solid 1px #f82f3a;
     margin-top: 7%;
     width: 100%;
+    margin-right: 20px;
 }
+
+.atkBtn a{
+    margin-left: -5px;
+}
+
 
 .circle5{
     -moz-border-radius: 100px/100px;
     -webkit-border-radius: 50px 50px;
-    border-radius: 200px/200px;
+    border-radius: 90px/90px;
     border:solid 2px #fff;
     width:250px;
     height:250px; 
+    margin-left: 50px;
+
 
 }
 
@@ -84,18 +129,29 @@ h1 {
 }
 
 .favico5{
-	margin-top: 22.5px;
-	margin-left: 22.5px;
-	height: 200px;
-	width: 200px;
+    margin-top: 22.5px;
+    margin-left: 22.5px;
+    height: 200px;
+    width: 200px;
 }
 
+@keyframes slideUp{
+    0%{
+        top: 0;
+        -webkit-animation-timing-function: ease-in;
+    }
+
+    100%{
+        top: 100px;
+        -webkit-animation-timing-function: ease-in;
+    }
+}
 
 #site1Well{
-	height: 50px;
-	width: 100px;
-	border: solid 2px #f53240;
-	background: #fff;
+    height: 50px;
+    width: 100px;
+    border: solid 2px #f53240;
+    background: #fff;
 }
 
 .input-field input[type=url]:focus {
@@ -104,7 +160,7 @@ h1 {
    }
 
 .input-field input[type=url]:focus + label {
-	color: #f53240;
+    color: #f53240;
 }
 
 .input-field .prefix.active {
@@ -122,30 +178,41 @@ h1 {
 }
 
 .errorTxt {
-    color: red;
+    color: white;
     font-family: 'Inconsolata', sans-serif;
     font-size: 18px;
 }
 
 .spacebro {
-	line-height: 15;
+    line-height: 5;
 }
 
 .button-col {
-	margin-top: 3%;
+    margin-top: 3%;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 .invs {
-	opacity: 0;
+    opacity: 0;
 }
 
 .centerDat {
-	padding-left: 45%;
+    padding-left: 34%;
 }
 
+.progress .determinate {
+    background-color: #26A653;
+} 
 
+.HPdisplay {
+    color: white;
+    display: none;
+}
+
+.progress {
+    display: none;
+}
 

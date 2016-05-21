@@ -2,11 +2,14 @@ var Sequelize = require("sequelize");
 
 var sequelize = require("../controllers/connection.js");
 
-var mons = sequelize.define("mons", {
+var pastSites = sequelize.define("pastSites", {
 	id: {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,
 		primaryKey: true
+	},
+	site: {
+		type: Sequelize.STRING,
 	},
 	class: {
 		type: Sequelize.STRING,
@@ -51,6 +54,6 @@ var mons = sequelize.define("mons", {
 	});
 
 // Syncs with DB
-mons.sync();
+pastSites.sync();
 
-module.exports = mons;
+module.exports = pastSites;
