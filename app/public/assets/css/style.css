@@ -1,7 +1,6 @@
-html {
+html{
     min-height: 100%;
 }
-
 body{   
   background: linear-gradient(to bottom right, #00303f, #02c8a7);
   min-height: 100%;
@@ -32,7 +31,25 @@ body{
     letter-spacing: 1px;
 }
 
+.undefModal-content{
+    font-family: 'Fjalla One', sans-serif;
+    padding: 14px;
+    font-size: 18px;
+    background-color: #005952;
+    color: white;
+    opacity: 80%;
+    letter-spacing: 1px;
+}
+
 .infoModal-content h4{
+    font-family: 'Fjalla One', sans-serif;
+    padding: 14px;
+    font-size: 50px;
+    background-color: #005952;
+    color: #f53240;
+    opacity: 80%;
+}
+.undefModal-content h4{
     font-family: 'Fjalla One', sans-serif;
     padding: 14px;
     font-size: 50px;

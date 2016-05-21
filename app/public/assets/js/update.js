@@ -45,12 +45,6 @@ $("#formValidate").validate({
 			var input = $("#curl").val();
 
 			$("#curl").val("http://");
-			
-			partyWait++;
-
-			team.push(input);
-
-			console.log("Squad :" + team);
 
 			var newURL = cleanURL(input);
 
@@ -59,6 +53,9 @@ $("#formValidate").validate({
 			var currentURL = window.location.origin;
 			$.post(currentURL + "/api/characters", newURL, function(data){
 				console.log(data);
+				if (data == ' '){
+					$("#undefModal").openModal();
+				} else {
 				// Open Stats Modal
 				$('#modal1').openModal({
 					dismissible: false, // Modal canNOT be dismissed by clicking outside of the modal
@@ -66,6 +63,10 @@ $("#formValidate").validate({
 					in_duration: 300, // Transition in duration
 					out_duration: 200, // Transition out duration
 					ready: function () { // Callback for Modal open
+						partyWait++;
+						team.push(input);
+						console.log("Squad :" + team);
+
 						$("#modHead").text("Do you want " + newURL + " on your team?");
 						$("#modTxt").html("<ul> <li>Class: " + data.class + "</li> <li>HP: " + data.HP + "</li> <li>STR: " + data.STR + "</li> <li>INT: " + data.INT + "</li> <li>Dodge: " + data.dodge + "</li> </ul>");
 					},
@@ -110,6 +111,7 @@ $("#formValidate").validate({
 					console.log("Nah bro...");
 					$('.D').unbind('click');
 				});
+				}
 			});
 
 			return false;

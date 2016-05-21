@@ -181,14 +181,19 @@ var characterCreate={
 
   createCharacter:function(newURL,app,playerCharacters,cb){
     client({'Action': 'UrlInfo','Url': newURL,'ResponseGroup': 'ContentData,Related,TrafficData,LinksInCount'}, function (err, data){
-        // if (data.related.categories == undefined){
-        //   // idk
-        // }
+        if (data.related.categories == undefined){
+          console.log("You can't add that site yet");
+          app.get('/',function(req,res){
+          res.render(" ");
+          })
+        } else {
         thing=new characterCreate.Character(data);
         cb(thing);
         console.log(playerCharacters);
         app.get('/',function(req,res){
-          res.json(data);
-        })});}}
+          res.render(data);
+        })
+        }
+      });}}
 
 module.exports=characterCreate;
