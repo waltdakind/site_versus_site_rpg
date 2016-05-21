@@ -157,10 +157,11 @@ var characterCreate={
         console.log("Goodbye");
         return(parseInt(Math.abs(parseInt(data.trafficData.usageStatistics.usageStatistic[0].pageViews.perMillion.value.replace(/,/g,""))*parseInt(data.trafficData.usageStatistics.usageStatistic[0].pageViews.perMillion.delta)/100)));}},
 
-  Character:function(data){
+  Character:function(data,newURL){
     if (data == undefined){
       this.class = 'undefined'
-    } else {
+    }else{
+      this.site=newURL,
       this.class=characterCreate.findMyCat(data),
       this.HP=characterCreate.findMyHeart(data),
       this.currentHP=this.HP,
@@ -181,11 +182,8 @@ var characterCreate={
 
   createCharacter:function(newURL,app,playerCharacters,cb){
     client({'Action': 'UrlInfo','Url': newURL,'ResponseGroup': 'ContentData,Related,TrafficData,LinksInCount'}, function (err, data){
-        // if (data.related.categories == undefined){
-        //   // idk
-        // }
-        thing=new characterCreate.Character(data);
-        cb(thing);
+        char=new characterCreate.Character(data,newURL);
+        cb(char);
         console.log(playerCharacters);
         app.get('/',function(req,res){
           res.json(data);
