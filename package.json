@@ -26,7 +26,7 @@
     "express": "^4.13.4",
     "jasmine": "^2.4.1",
     "mysql": "^2.10.2",
-    "sequelize": "^3.23.0",
+    "sequelize": "^6.3.5",
     "sitemap.xml": "^1.0.0"
   },
   "devDependencies": {
